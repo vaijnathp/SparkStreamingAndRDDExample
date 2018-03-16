@@ -1,3 +1,5 @@
+package polsys.scalaExamples
+
 import scala.io.Source
 
 /**

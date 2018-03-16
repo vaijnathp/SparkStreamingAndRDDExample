@@ -1,3 +1,5 @@
+package polsys.streaming
+
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{Seconds, StreamingContext}
