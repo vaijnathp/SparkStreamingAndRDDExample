@@ -2,16 +2,38 @@ group 'polsys'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
-sourceCompatibility = 1.5
+
+sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
 }
-
+sourceSets {
+    main.java.srcDir 'src/main/scala'
+    test.java.srcDir 'src/test/scala'
+    main.resources.srcDir 'src/main/resources'
+}
 dependencies {
+    //Spark
+    compile('org.apache.spark:spark-sql_2.11:2.3.0')
+    compile('org.apache.spark:spark-kvstore_2.11:2.3.0')
+    compile('org.apache.spark:spark-core_2.11:2.3.0')
+    compile('org.apache.spark:spark-catalyst_2.11:2.3.0')
+    compile('org.apache.spark:spark-hive_2.11:2.3.0')
+    compile('org.apache.spark:spark-unsafe_2.11:2.3.0')
+    compile('org.apache.spark:spark-network-common_2.11:2.3.0')
+    compile('org.apache.spark:spark-tags_2.11:2.3.0')
+    compile('org.apache.spark:spark-launcher_2.11:2.3.0')
+    compile('org.apache.spark:spark-network-shuffle_2.11:2.3.0')
+    compile (group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.3.0')
+//    compile ('org.apache.spark:spark-parent_2.11:2.4.0-SNAPSHOT')
 
     //AWS
     compile ('com.amazonaws:aws-java-sdk:1.11.18') { exclude group: '*' }
@@ -20,6 +42,9 @@ dependencies {
     compile (group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.188')
     compile (group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.18')
     compile (group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.286') { exclude group: '*' }
+
+
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-glue', version: '1.11.300'
 
     //Hadoop
     compile ('org.apache.hadoop:hadoop-aws:2.7.2') { exclude group: '*' }
@@ -34,21 +59,9 @@ dependencies {
     compile (group: 'org.scalatest', name: 'scalatest_2.11', version: '2.2.6')
     compile (group: 'org.scala-lang.modules', name: 'scala-xml_2.11', version: '1.0.2')
 
-    //Spark
-    compile ('org.apache.spark:spark-core_2.11:2.1.1')
-    compile ('org.apache.spark:spark-catalyst_2.11:2.1.1')
-    compile ('org.apache.spark:spark-sql_2.11:2.1.1')
-    compile ('org.apache.spark:spark-hive_2.11:2.1.1')
-    compile ('com.databricks:spark-redshift_2.11:2.0.1')
-    compile ('org.apache.spark:spark-unsafe_2.11:2.1.1')
-    compile ('org.apache.spark:spark-network-common_2.11:2.1.1')
-    compile ('org.apache.spark:spark-tags_2.11:2.1.1')
-    compile ('org.apache.spark:spark-launcher_2.11:2.1.1')
-    compile ('org.apache.spark:spark-network-shuffle_2.11:2.1.1')
-
 
     //SparkStreaming
-    compile (group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.1.1')
+
 
     testCompile (group: 'junit', name: 'junit', version: '4.11')
 }
