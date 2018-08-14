@@ -13,11 +13,11 @@ object TestFileStream {
 
     val sparkConf: SparkConf=new SparkConf().setAppName("TextFileStream").setMaster("local[*]")
 
-    val streamingContext:StreamingContext=new StreamingContext(sparkConf,Seconds(3))
+    val streamingContext:StreamingContext=new StreamingContext(sparkConf,Seconds(2))
 
-    val dStream:DStream[String] = streamingContext.textFileStream("/Users/vaijnathp/Desktop/tmp")
+    val dStream:DStream[String] = streamingContext.textFileStream("C:\\Users\\vaijnathp\\Desktop\\temp")
 
-    val words=dStream.flatMap(_.split(" "))
+    val words=dStream.flatMap(_.split(","))
 
     val tupleWords=words.map(w=> (w,1))
 

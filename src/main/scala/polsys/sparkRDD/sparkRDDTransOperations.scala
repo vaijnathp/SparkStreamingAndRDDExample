@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 /**
   * Created by vaijnathp on 3/16/2018.
   */
-object sparkRDDOperations {
+object sparkRDDTransOperations {
 
   val schema: StructType = StructType(
       List(StructField("name",StringType),StructField("class",StringType),StructField("school",StringType)))
@@ -16,13 +16,14 @@ object sparkRDDOperations {
       .master("local[*]").config("spark.sql.shuffle.partitions","2")
       .getOrCreate()
 
-val dataFrame=spark.read.schema(schema).csv("C:\\Users\\vaijnathp\\Desktop\\T.csv")
+    val dataFrame=spark.read.textFile("C:\\Users\\vaijnathp\\Desktop\\userLists.txt").rdd
 
-    val filteredDF=dataFrame.filter(row=> true)
+    val letters=dataFrame.flatMap(r=> r.split(""))
+    val filtered = letters.filter(l=>l.matches("[A|a|E|e|I|i|O|o]"))
+    val tuplerdd=filtered.map(l=> (l,""))
 
-    filteredDF.show()
-
-    dataFrame.show()
+    val reduced=tuplerdd.reduceByKey((acc,v)=> "" )
+    reduced.foreach(e=>println(e))/*saveAsTextFile("C:\\Users\\vaijnathp\\Desktop\\letterCount")*/
 
   }
 
