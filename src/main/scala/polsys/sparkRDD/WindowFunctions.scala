@@ -16,6 +16,7 @@ object WindowFunctions {
     val empDF = sparkSession.createDataFrame(Seq(
       (7369, "SMITH", "CLERK", 7902, "17-Dec-80", 800, 20, 10),
       (7499, "ALLEN", "SALESMAN", 7698, "20-Feb-81", 1600, 300, 30),
+      (7499, "ALLEN", "SALESMAN", 7698, "20-Feb-81", 1600, 300, 30),
       (7521, "WARD", "SALESMAN", 7698, "22-Feb-81", 1250, 500, 30),
       (7566, "JONES", "MANAGER", 7839, "2-Apr-81", 2975, 0, 20),
       (7654, "MARTIN", "SALESMAN", 7698, "28-Sep-81", 1250, 1400, 30),
@@ -34,7 +35,20 @@ object WindowFunctions {
     val rankDF=empDF.select($"*", rankf as "rank")
     rankDF/*.filter($"rank" === 1)*/.show()
 
+println ("Partitions"+rankDF.rdd.getNumPartitions)
+
+    val percentRank= rankDF.withColumn("percentRank",percent_rank().over(partitionWindow))
+    percentRank.show()
+
+    val denseRank=empDF.withColumn("DenseRank",dense_rank() over(partitionWindow))
+    denseRank.show()
+
+    val nTile=empDF.withColumn("nTileRank", ntile(4) over partitionWindow)
+    nTile.show()
+Thread.sleep(10001)
+
   }
+
 
 
 }
