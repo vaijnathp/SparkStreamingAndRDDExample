@@ -38,7 +38,7 @@ object Checkpointing {
     val df=spark.readStream.schema(schema).csv("C:\\Users\\AkashT\\Documents\\testData")
 
      query=df.groupBy("f1").count().writeStream.format("console")
-      .option("checkpointLocation","C:\\Users\\AkashT\\Documents\\checkpointLocation").outputMode("complete").start
+      .option("checkpointLocation","checkpointLocation").outputMode("complete").start
       t.join()
      query.awaitTermination()
 

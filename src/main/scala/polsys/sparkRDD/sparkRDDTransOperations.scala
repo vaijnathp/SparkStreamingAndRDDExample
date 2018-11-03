@@ -16,14 +16,14 @@ object sparkRDDTransOperations {
       .master("local[*]").config("spark.sql.shuffle.partitions","2")
       .getOrCreate()
 
-    val dataFrame=spark.read.textFile("C:\\Users\\vaijnathp\\Desktop\\userLists.txt").rdd
+    val dataFrame=spark.read.textFile("userLists.txt").rdd
 
     val letters=dataFrame.flatMap(r=> r.split(""))
     val filtered = letters.filter(l=>l.matches("[A|a|E|e|I|i|O|o]"))
     val tuplerdd=filtered.map(l=> (l,""))
 
     val reduced=tuplerdd.reduceByKey((acc,v)=> "" )
-    reduced.foreach(e=>println(e))/*saveAsTextFile("C:\\Users\\vaijnathp\\Desktop\\letterCount")*/
+    reduced.foreach(e=>println(e))/*saveAsTextFile("letterCount")*/
 
   }
 

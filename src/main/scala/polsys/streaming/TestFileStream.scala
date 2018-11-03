@@ -15,7 +15,7 @@ object TestFileStream {
 
     val streamingContext:StreamingContext=new StreamingContext(sparkConf,Seconds(2))
 
-    val dStream:DStream[String] = streamingContext.textFileStream("C:\\Users\\vaijnathp\\Desktop\\temp")
+    val dStream:DStream[String] = streamingContext.textFileStream("temp")
 
     val words=dStream.flatMap(_.split(","))
 

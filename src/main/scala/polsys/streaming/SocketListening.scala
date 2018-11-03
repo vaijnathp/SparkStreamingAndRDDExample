@@ -13,7 +13,7 @@ object SocketListening {
     val sc=new SparkConf().setAppName("Streaming").setMaster("local[*]")
     val dStreamContext=new StreamingContext(sc,Seconds(3))
 
-    val stream = dStreamContext.socketTextStream("bhsen",9999)
+    val stream = dStreamContext.socketTextStream("host",9999)
 
     val flatMap=stream.flatMap(_.split(" "))
 

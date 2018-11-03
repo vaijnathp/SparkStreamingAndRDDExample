@@ -19,7 +19,7 @@ val stru=new StructType()
     val df=sparkSession.read.
       schema(StructType(List(StructField("Name",StructType(List(StructField("Fname",StringType),StructField("Lname",StringType)))),
       StructField("Address",new StructType().add("LaneNo",StringType).add("LandMark",StringType))))).option("delimeter",",")
-      .json("C:\\Users\\vaijnathp\\IdeaProjects\\Hydrograph_Streaming\\hydrograph.engine\\TestJobs\\input")
+      .json("input")
     import sparkSession.implicits._
     df.printSchema()
     val renamedDf=df.withColumnRenamed($"Name.Fname".toString(),"FName")

@@ -15,7 +15,7 @@ object LongestWord {
 
     val session = SparkSession.builder().master("local[*]").appName("LongestWord").getOrCreate()
     import session.implicits._
-    val df = session.read.textFile("C:\\Users\\vaijnathp\\IdeaProjects\\SparkStreamingAndRDDExample\\testData\\Names.txt")
+    val df = session.read.textFile("Names.txt")
 
 //    val wordLen=df.map(word => Row.fromSeq(Seq(word.length,word)))(RowEncoder(StructType(List(StructField("Len",IntegerType),StructField("Word",StringType)))))
 

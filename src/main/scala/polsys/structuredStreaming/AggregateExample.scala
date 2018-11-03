@@ -16,7 +16,7 @@ object AggregateExample {
     val csvDF=sparkSession.readStream
       .schema(StructType(List(StructField("Name",StringType),StructField("Address",StringType),StructField("timestamp",TimestampType))))
       .option("delimiter",",")
-      /*.format("csv")*/.csv("C:\\Users\\vaijnathp\\Desktop\\tmp")
+      /*.format("csv")*/.csv("tmp")
 
 //    val withTimeDF=csvDF.withColumn("timestamp1",current_timestamp())
 
