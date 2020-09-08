@@ -15,7 +15,7 @@ object WindowingWordCount {
     val sparkSession=SparkSession.builder().master("local[*]").appName("Structured Stream").getOrCreate()
     import sparkSession.implicits._
     import org.apache.spark.sql.catalyst.expressions._
-
+ 78\
     val csvDF=sparkSession.readStream
       .schema(StructType(List(StructField("Name",StringType),StructField("Address",StringType))))
       .option("delimiter",",")
@@ -23,7 +23,7 @@ object WindowingWordCount {
 
     val withTimeDF=csvDF.withColumn("timestamp",current_timestamp())
 
-    val countDF=withTimeDF.groupBy(window($"timestamp", "10 seconds", "5 seconds"),$"Name").count()
+    val countDF=withTimeDF.groupBy(window($"timestamp", "10 seconds", "5 seconds"),$"Name").agg(collect_list("name"))
 
     val console=countDF.writeStream.format("console").outputMode(OutputMode.Complete()).start()
 

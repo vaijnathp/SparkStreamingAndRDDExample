@@ -29,6 +29,7 @@ object WindowFunctions {
     )).toDF("empno", "ename", "job", "mgr", "hiredate", "sal", "comm", "deptno")
 
     val partitionWindow = Window.partitionBy($"deptno").orderBy($"sal".asc)
+    empDF.dropDuplicates()
 
     val rankf = rank().over(partitionWindow)
 

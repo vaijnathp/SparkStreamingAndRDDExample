@@ -19,11 +19,12 @@ object sparkRDDTransOperations {
     val dataFrame=spark.read.textFile("userLists.txt").rdd
 
     val letters=dataFrame.flatMap(r=> r.split(""))
+
     val filtered = letters.filter(l=>l.matches("[A|a|E|e|I|i|O|o]"))
     val tuplerdd=filtered.map(l=> (l,""))
 
     val reduced=tuplerdd.reduceByKey((acc,v)=> "" )
-    reduced.foreach(e=>println(e))/*saveAsTextFile("letterCount")*/
+    reduced.foreach(e=>println(e))
 
   }
 
