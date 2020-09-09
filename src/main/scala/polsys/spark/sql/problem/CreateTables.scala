@@ -1,5 +1,7 @@
 package polsys.sark.sql.problem
 
+//https://www.techbeamers.com/sql-query-questions-answers-for-practice/
+
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object CreateTables {

@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
-
+apply plugin: 'scala'
 
 sourceCompatibility = 1.8
 
@@ -14,9 +14,16 @@ repositories {
     jcenter()
 }
 sourceSets {
-    main.java.srcDir 'src/main/scala'
-    test.java.srcDir 'src/test/scala'
-    main.resources.srcDir 'src/main/resources'
+    main {
+        scala {
+            srcDirs = ['src/main/scala']
+        }
+    }
+    test {
+        scala {
+            srcDirs = ['test/main/scala']
+        }
+    }
 }
 dependencies {
     //Spark

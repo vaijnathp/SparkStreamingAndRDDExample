@@ -15,7 +15,7 @@ object WindowingWordCount {
     val sparkSession=SparkSession.builder().master("local[*]").appName("Structured Stream").getOrCreate()
     import sparkSession.implicits._
     import org.apache.spark.sql.catalyst.expressions._
- 78\
+
     val csvDF=sparkSession.readStream
       .schema(StructType(List(StructField("Name",StringType),StructField("Address",StringType))))
       .option("delimiter",",")
