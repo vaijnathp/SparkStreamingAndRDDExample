@@ -28,13 +28,13 @@ object WindowFunctions {
       (7876, "ADAMS", "CLERK", 7788, "23-May-87", 1100, 0, 20)
     )).toDF("empno", "ename", "job", "mgr", "hiredate", "sal", "comm", "deptno")
 
-    val partitionWindow = Window.partitionBy($"deptno").orderBy($"sal".asc)
+    val partitionWindow = Window/*.partitionBy($"deptno")*/.orderBy($"sal".desc)
     empDF.dropDuplicates()
 
     val rankf = rank().over(partitionWindow)
 
     val rankDF=empDF.select($"*", rankf as "rank")
-    rankDF/*.filter($"rank" === 1)*/.show()
+    rankDF/*.filter($"rank" === 1)*/.show(5)
 
 println ("Partitions"+rankDF.rdd.getNumPartitions)
 

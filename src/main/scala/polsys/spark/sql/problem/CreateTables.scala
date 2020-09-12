@@ -5,13 +5,14 @@ package polsys.sark.sql.problem
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object CreateTables {
-  private val worker = Seq(("001","Monika","Arora","100000","2014-02-20 09:00:00","HR"),
-    ("002","Niharika","Verma","80000","2014-06-11 09:00:00","Admin"),
-    ("003","Vishal","Singhal","300000","2014-02-20 09:00:00","HR"),
-    ("004","Amitabh","Singh","500000","2014-02-20 09:00:00","Admin"),
-    ("005","Vivek","Bhati","500000","2014-06-11 09:00:00","Admin"),
-    ("006","Vipul","Diwan","200000","2014-06-11 09:00:00","Account"),
-    ("007","Satish","Kumar","75000","2014-01-20 09:00:00","Account"))
+  private val worker = Seq((1,"Manjusha","Sane",100000,"2014-02-20 09:00:00","HR"),
+    (2,"Nishigandha","Pawar",80000,"2014-06-11 09:00:00","Admin"),
+    (3,"Vishal","Shinde",300000,"2014-02-20 09:00:00","HR"),
+    (4,"Akshay","Patil",500000,"2014-02-20 09:00:00","Admin"),
+    (8,"Aarjun","Patil",500000,"2014-02-20 09:00:00","HR"),
+    (5,"Vivek","Kulkarni",500000,"2014-06-11 09:00:00","Admin"),
+    (6,"Vikas","Kolhe",200000,"2014-06-11 09:00:00","Account"),
+    (7,"Satish","Karad",75000,"2014-01-20 09:00:00","Account"))
   private val workerSchema = Seq("worker_id","first_name","last_name","salary","joining_date","department")
 
   private val bonus = Seq(("1","2016-02-20 00:00:00","5000"),
