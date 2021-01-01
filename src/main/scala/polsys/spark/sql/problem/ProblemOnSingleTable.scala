@@ -3,9 +3,9 @@ package polsys.sark.sql.problem
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.functions._
 object ProblemOnSingleTable {
-  val sparkSession = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
+  val sparkSession: SparkSession = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
   import sparkSession.implicits._
-  val workerDF = CreateTables.getWorkerDF(sparkSession).cache()
+  val workerDF: DataFrame = CreateTables.getWorkerDF(sparkSession).cache()
 
   //Write an SQL query to fetch “FIRST_NAME” from Worker table using the alias name as <WORKER_NAME>
   def selectNameAndAliasAsWorkerName():DataFrame = {
@@ -14,7 +14,7 @@ object ProblemOnSingleTable {
 
   //Write an SQL query to fetch “FIRST_NAME” from Worker table in upper case.
   def selectNameAndAliasAsWorkerNameUpperCase():DataFrame = {
-    workerDF.select(upper($"first_name"))
+    workerDF.select(upper(col("first_name")))
   }
 
   //fetches the unique values of DEPARTMENT from Worker table and prints its length.
@@ -74,7 +74,7 @@ object ProblemOnSingleTable {
 
   // fetch worker's complete names with salaries <= 50000 and >= 100000.
   def salaryNotInBetween(): DataFrame = {
-    workerDF.filter(! $"salary".between(50000,100000))
+    workerDF.filter(! col("salary").between(50000,100000))
       .select(concat($"first_name",lit(" "),$"Last_name") as("complete_name"), $"salary")
   }
 

@@ -1,4 +1,4 @@
-package polsys.scalaExamples
+package polsys.scala.examples
 
 /**
   * Created by vaijnathp on 3/23/2018.

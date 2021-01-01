@@ -1,4 +1,4 @@
-package polsys.scalaExamples
+package polsys.scala.examples
 
 import scala.io.Source
 

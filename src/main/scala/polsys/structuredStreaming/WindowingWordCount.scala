@@ -8,9 +8,9 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 /**
   * Created by vaijnathp on 5/30/2018.
-  */
-object WindowingWordCount {
-  def main(args: Array[String]): Unit = {
+    */
+    object WindowingWordCount {
+      def main(args: Array[String]): Unit = {
 
     val sparkSession=SparkSession.builder().master("local[*]").appName("Structured Stream").getOrCreate()
     import sparkSession.implicits._
