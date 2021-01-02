@@ -10,24 +10,24 @@ object ComplexMultiLevelJSONoutput {
       .appName("Creating Nested JSON object").master("local[*]").getOrCreate()
 
     import sparkSession.implicits._
-    val csvFile: DataFrame = sparkSession.read.option("inferSchema" , "true").option("header", "true").option("delimiter", "|").csv("src/main/resources/Data/SHE_indicators_20201228.csv")
+    val csvFile: DataFrame = sparkSession.read.option("inferSchema" , "true").option("header", "true").option("delimiter", "|").csv("src/main/resources/Data/Devices.csv")
 
-val groColSeq = Seq(col("Indicatorlabel"),col("Indicatorcategory"),col("ThirdPartyAssured"),
-  col("UniversalIndicator"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
+val groColSeq = Seq(col("Devicelabel"),col("Devicecategory"),col("ThirdPartyAssured"),
+  col("UniversalDevice"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
   col("TypeOfDisclosure"),col("NameOfDisclosure"))
 
-    val df = csvFile.groupBy(col("Indicatorlabel"),col("Indicatorcategory"),col("ThirdPartyAssured"),
-      col("UniversalIndicator"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
+    val df = csvFile.groupBy(col("Devicelabel"),col("Devicecategory"),col("ThirdPartyAssured"),
+      col("UniversalDevice"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
       col("TypeOfDisclosure"),col("NameOfDisclosure"))
       .agg(collect_list(struct(col("ReadingDate").as("submissionDate"),
-      col("IndicatorValue"), col("IndicatorComment").as("comment"))).as("Readings"))
-      .groupBy(col("Indicatorlabel"),col("Indicatorcategory"),col("ThirdPartyAssured"),
-        col("UniversalIndicator"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
+      col("DeviceValue"), col("DeviceComment").as("comment"))).as("Readings"))
+      .groupBy(col("Devicelabel"),col("Devicecategory"),col("ThirdPartyAssured"),
+        col("UniversalDevice"),col("UnitOfMeasure"),col("GroupLevelDisclosure"),
         col("TypeOfDisclosure"),col("NameOfDisclosure"))
       .agg(collect_list(struct(col("NameOfDisclosure").as("AssetName"),col("Readings"))).as("GrpTypeOfDisclosure"))
-      .groupBy(col("Indicatorlabel"),col("Indicatorcategory"),col("ThirdPartyAssured"),
-        col("UniversalIndicator"),col("UnitOfMeasure"))
-      .agg(collect_list(functions.map(col("TypeOfDisclosure"),col("GrpTypeOfDisclosure"))).as("IndicatorDetails"))
+      .groupBy(col("Devicelabel"),col("Devicecategory"),col("ThirdPartyAssured"),
+        col("UniversalDevice"),col("UnitOfMeasure"))
+      .agg(collect_list(functions.map(col("TypeOfDisclosure"),col("GrpTypeOfDisclosure"))).as("DeviceDetails"))
 
     df.write.mode(SaveMode.Overwrite).json("src/main/resources/Data/output")
   }
