@@ -20,7 +20,8 @@ object LongestWord {
 //    val wordLen=df.map(word => Row.fromSeq(Seq(word.length,word)))(RowEncoder(StructType(List(StructField("Len",IntegerType),StructField("Word",StringType)))))
 
     val wordLen= df.map(r=> Row(r))(RowEncoder(df.schema))
-      .map(words=> (words.length,words)).toDF("Len","Word")
+      .map(words=> (words.length,words))
+      .toDF("Len","Word")
     val winFun=Window.orderBy($"Len".desc)
 
     val rankv = rank().over(winFun)

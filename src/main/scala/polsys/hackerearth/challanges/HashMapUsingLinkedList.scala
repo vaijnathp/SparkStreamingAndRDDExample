@@ -1,9 +1,9 @@
 package polsys.hackerearth.challanges
 
-import scala.collection.immutable.HashMap
 
 object HashMapUsingLinkedList {
   def main(args: Array[String]): Unit = {
+    val map:Map[String,Int] = Map()
     val myHashMap: MyHashMap = MyHashMap(("",""))
   }
 
