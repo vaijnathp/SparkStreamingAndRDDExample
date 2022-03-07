@@ -7,14 +7,14 @@ import org.apache.spark.sql.functions._
 /**
   * Created by vaijnathp on 8/13/2018.
   */
-object DFOperationsColumnRenameDrop {
+object  DFOperationsColumnRenameDrop {
 
   def main(args: Array[String]): Unit = {
     val sparkSession=SparkSession.builder().appName("columnOperations").master("local[*]").getOrCreate()
 
-val stru=new StructType()
-    stru.add("fname",StringType)
-    stru.add("Lname",StringType)
+    val stru=new StructType()
+        stru.add("fname",StringType)
+        stru.add("Lname",StringType)
 
     val df=sparkSession.read.
       schema(StructType(List(StructField("Name",StructType(List(StructField("Fname",StringType),StructField("Lname",StringType)))),
@@ -32,8 +32,5 @@ val stru=new StructType()
     rename.show()
     val dropedDF=copiedDF.drop($"Lname")
     dropedDF.show()
-
   }
-
-
 }

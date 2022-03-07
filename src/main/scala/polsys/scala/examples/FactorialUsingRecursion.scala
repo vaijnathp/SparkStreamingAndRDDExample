@@ -5,7 +5,7 @@ import org.apache.log4j.Logger
 import scala.io.StdIn
 
 object FactorialUsingRecursion {
-  val log = new Logger("Factorial")
+  val log = Logger.getLogger(FactorialUsingRecursion.getClass)
 
   def getFactorialByNormalRecursion(number: Int): Int = {
     try{
@@ -25,7 +25,7 @@ object FactorialUsingRecursion {
 
   def main(args: Array[String]): Unit = {
     try {
-      log.info("Please enter the number for Factorial")
+      print("Please enter the number for Factorial")
       val number = StdIn.readInt()
       log.info("Normal Recursion \n\t Factorial of the Number:"+number+" = "+getFactorialByNormalRecursion(number))
       log.info("Tail Recursion \n\t Factorial of the Number:"+number+" = "+getFactorialByTailRecursion(1, number))

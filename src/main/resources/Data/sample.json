@@ -1,0 +1,50 @@
+{
+  "name": "tr_curation_pattern",
+  "properties": {
+    "annotations": [],
+    "runtimeState": "Stopped",
+    "pipelines": [
+      {
+        "pipelineReference": {
+          "referenceName": "curation_master",
+          "type": "PipelineReference"
+        },
+        "parameters": {
+          "keyvault_name": "mneu-kv-dev-dad3scr-001",
+          "databricks_secret_name": "db-pat-token",
+          "databricks_region": "northeurope",
+          "databricks_cluster_id": "1216-152632-3dur3ng5",
+          "notebook_path": "/angloamerican/scr/de/etl/raw_to_curated.py",
+          "business_unit": "kumbha",
+          "site_name": "sishen",
+          "site_short_code": "sis",
+          "files_to_process": "dbfs:/mnt/omportaldata/curationlogic.json",
+          "datetime_input": "2021-11-21T12:00",
+          "additional_path": "None",
+          "write_mode": "overwrite",
+          "interval": "3",
+          "interval_type": "days",
+          "read_partition": "Year=%Y/Month=%m/Day=%d",
+          "external_config_file_path": ""
+        }
+      }
+    ],
+    "type": "ScheduleTrigger",
+    "typeProperties": {
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "startTime": "2022-01-12T09:43:00Z",
+        "timeZone": "UTC",
+        "schedule": {
+          "minutes": [
+            0
+          ],
+          "hours": [
+            1
+          ]
+        }
+      }
+    }
+  }
+}

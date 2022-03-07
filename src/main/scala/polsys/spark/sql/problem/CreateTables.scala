@@ -32,7 +32,8 @@ object CreateTables {
     ("3","Lead","2016-06-11 00:00:00"))
   private val titleSchema = Seq("worker_ref_id","worker_title","affected_from")
 
-  def getWorkerDF(sparkSession: SparkSession):DataFrame = {
+
+  def   getWorkerDF(sparkSession: SparkSession):DataFrame = {
     sparkSession.createDataFrame(worker).toDF(workerSchema:_*)
   }
   def getBonusDF(sparkSession: SparkSession):DataFrame = {
@@ -41,4 +42,12 @@ object CreateTables {
   def getTitleDF(sparkSession: SparkSession):DataFrame = {
     sparkSession.createDataFrame(title).toDF(titleSchema:_*)
   }
+}
+
+class ProductSales {
+
+  private val product = Seq(
+    ("","","","")
+  )
+
 }

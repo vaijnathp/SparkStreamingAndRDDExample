@@ -1,6 +1,6 @@
 package polsys.spark.sql.problem
 
-import org.apache.spark.sql.functions.{col, current_date, rank}
+import org.apache.spark.sql.functions.{col, current_date, dense_rank, rank}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import polsys.sark.sql.problem.CreateTables
 
@@ -12,7 +12,6 @@ object ProblemOnJoin{
 
   // print details of the Workers who are also Managers.
   def detailsOfManagers():DataFrame = {
-
     workerDF.as("workerDF").join(titleDF,$"worker_id" === $"worker_ref_id" && $"worker_title" === "Manager")
       .select($"workerDF.*",$"worker_title")
   }
@@ -87,22 +86,35 @@ object ProblemOnJoin{
     workerDF.groupBy("department").sum("salary").as("totalSalary")
   }
 
+  def secondHighestSalaryDeptWise(): DataFrame = {
+    val winOnDept = Window.orderBy("department").orderBy($"salary".desc)
+    workerDF.withColumn("SalaryRank", dense_rank().over(winOnDept)).filter($"SalaryRank" === 2)
+  }
+
+  def lowestSalaryDeptWise():DataFrame = {
+    val win = Window.orderBy("department").orderBy("salary")
+    workerDF.withColumn("SalaryRank", dense_rank().over(win)).filter($"SalaryRank" === 1)
+  }
 
 
   def main(args: Array[String]): Unit = {
     print("")
-    detailsOfManagers().show(5)
-    findDuplicates().show(5)
-    oddRowsFromTable().show(5)
-    intersectingTable().show(5)
-    printCurrentTime().show(5)
-    top4SalariedRecords().show(5)
-    fifthHighestSalary().show(5)
-    workerOfSameSalary().show(5)
-    unionOfDF().show(5)
-    deptLessThan2Emp().show(5)
-    highestSalaryByDepartment().show(5)
-    deptWiseTotalSal().show(5)
+//    detailsOfManagers().show(5)
+//    findDuplicates().show(5)
+//    oddRowsFromTable().show(5)
+//    intersectingTable().show(5)
+//    printCurrentTime().show(5)
+//    top4SalariedRecords().show(5)
+//    fifthHighestSalary().show(5)
+//    workerOfSameSalary().show(5)
+//    unionOfDF().show(5)
+//    deptLessThan2Emp().show(5)
+//    highestSalaryByDepartment().show(5)
+//    deptWiseTotalSal().show(5)
+    secondHighestSalaryDeptWise().show()
+    lowestSalaryDeptWise().show()
+
+
   }
 
 

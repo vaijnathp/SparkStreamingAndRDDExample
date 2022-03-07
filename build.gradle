@@ -37,6 +37,9 @@ dependencies {
     compile('org.apache.spark:spark-tags_2.11:2.3.0')
     compile('org.apache.spark:spark-launcher_2.11:2.3.0')
     compile('org.apache.spark:spark-network-shuffle_2.11:2.3.0')
+    compile('com.databricks:spark-avro_2.11:3.2.0')
+
+
     compile (group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.3.0')
 
     //AWS
